@@ -148,7 +148,11 @@
 <body>
   <canvas id="pinkboard"></canvas>
   <div id="name"></div>
-  <div id="inputValue">妈的广告招租&nbsp;<br />文本: <input type="text" value="" id="firstname"><br></div>
+  <div id="inputValue">
+    妈的广告招租&nbsp;<br />
+    文本: <input type="text" value="" id="firstname"><br>
+    是否全屏:<input type="checkbox" id="check">
+  </div>
   <button id="btn" type="button" onclick="changeName()">点击这里</button>
   <script>
     window.onload = function () {
@@ -156,6 +160,25 @@
     }
 
     function changeName() {
+      if (document.getElementById("check").checked) {
+        if (document.documentElement.RequestFullScreen) {
+          document.documentElement.RequestFullScreen();
+        }
+        //兼容火狐
+        console.log(document.documentElement.mozRequestFullScreen)
+        if (document.documentElement.mozRequestFullScreen) {
+          document.documentElement.mozRequestFullScreen();
+        }
+        //兼容谷歌等可以webkitRequestFullScreen也可以webkitRequestFullscreen
+        if (document.documentElement.webkitRequestFullScreen) {
+          document.documentElement.webkitRequestFullScreen();
+        }
+        //兼容IE,只能写msRequestFullscreen
+        if (document.documentElement.msRequestFullscreen) {
+          document.documentElement.msRequestFullscreen();
+        }
+      }
+
       document.getElementById("pinkboard").style.visibility = "visible";
       let value = document.getElementById("firstname").value;
       document.getElementById("name").innerHTML = value;
